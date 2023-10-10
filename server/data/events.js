@@ -1,7 +1,7 @@
 
 
 
-const eventsData = [
+const eventData = [
     {
       id: 1,
       name: "Los Angeles Food Bank Drive",
@@ -111,3 +111,5 @@ const eventsData = [
       time: "18:00:00",
     },
 ];
+
+export default eventData
