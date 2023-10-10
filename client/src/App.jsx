@@ -1,36 +1,50 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRoutes, Link } from 'react-router-dom'
 import Locations from './pages/Locations'
 import LocationEvents from './pages/LocationEvents'
-import Events from './pages/Events'
+// import Events from './pages/Events'
+import LocationsAPI from './services/LocationsAPI.jsx'
 import './App.css'
 
 const App = () => {
+  const [locations, setLocations] = useState([])
+  const [locationEvents, setLocationEvents] = useState([])
+
+  useEffect(() => {
+    const data = LocationsAPI.getAllLocations()
+    setLocations(data)
+  }, []);
+
+
+
+
+
+
   let element = useRoutes([
     {
       path: '/',
       element: <Locations />
     },
     {
-      path: '/echolounge',
-      element: <LocationEvents index={1} />
+      path: '/locations/losangeles',
+      element: <LocationEvents index={1} city={'losangeles'} />
     },
     {
-      path: '/houseofblues',
-      element: <LocationEvents index={2} />
+      path: '/locations/sacramento',
+      element: <LocationEvents index={2} city={'sacramento'} />
     },
     {
-      path: '/pavilion',
-      element: <LocationEvents index={3} />
+      path: '/locations/sandiego',
+      element: <LocationEvents index={3} city='sandiego' />
     },
     {
-      path: '/americanairlines',
-      element: <LocationEvents index={4} />
-    },
-    {
-      path: '/events',
-      element: <Events />
+      path: '/locations/sanfrancisco',
+      element: <LocationEvents index={4} city='sanfrancisco' />
     }
+    // {
+    //   path: '/events',
+    //   element: <Events />
+    // }
   ])
 
   return (
@@ -41,7 +55,7 @@ const App = () => {
 
         <div className='header-buttons'>
           <Link to='/' role='button'>Home</Link>
-          <Link to='/events' role='button'>Events</Link>
+          {/* <Link to='/events' role='button'>Events</Link> */}
         </div>
       </header>
 
