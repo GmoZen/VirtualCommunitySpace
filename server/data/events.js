@@ -110,6 +110,18 @@ const eventData = [
       date: "2023-09-22",
       time: "18:00:00",
     },
+    {
+        id: 10,
+        name: "Sacramento Farmers' Market",
+        website: "https://www.sacfarmersmarket.org",
+        about: "Experience fresh, local produce at the Sacramento Farmers' Market! Join us for a vibrant market day filled with delicious fruits, vegetables, artisanal goods, and more. Support local farmers and enjoy the best of our region's harvest.",
+        phone: "916-333-4444",
+        location: "sacramento",
+        address: "200 Farmers' Way, Sacramento, CA 95814",
+        image: "https://mediaproxy.salon.com/width/1200/https://media.salon.com/2021/08/farmers-market-produce-0812211.jpg",
+        date: "2023-07-22",
+        time: "09:00:00",
+      }
 ];
 
 export default eventData

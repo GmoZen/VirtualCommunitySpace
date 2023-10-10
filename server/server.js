@@ -14,6 +14,9 @@ const app = express()
 
 app.use(express.json())
 
+
+
+
 if (process.env.NODE_ENV === 'development') {
     app.use(favicon(path.resolve('../', 'client', 'public', 'party.png')))
 }

@@ -1,6 +1,54 @@
-import { pool } from './database'
-import './dotenev.js'
+import { pool } from './database.js'
+import './dotenv.js'
 import eventData from '../data/events.js'
+
+
+const createLocationsTable = async () => {
+    const createTableQuery = `
+        DROP TABLE IF EXISTS locations;
+
+        CREATE TABLE IF NOT EXISTS locations (
+            id SERIAL PRIMARY KEY,
+            city VARCHAR(255) NOT NULL
+        )
+    `
+
+    try {
+        const res = await pool.query(createTableQuery)
+        console.log('🎉 locations table created successfully')
+    } catch (err) {
+        console.error('⚠️ error creating locations table', err)
+    }
+}
+
+
+const seedLocationsTable = async () => {
+    await createLocationsTable()
+
+    const locationValues = eventData.map((event) => event.location)
+    const filteredLocations = [...new Set(locationValues)]
+
+    filteredLocations.forEach((location) => {
+        const insertQuery = {
+            text: 'INSERT INTO locations (city) VALUES ($1)'
+        }
+
+        const values = [
+            location
+        ]
+
+        pool.query(insertQuery, values, (err, res) => {
+            if (err) {
+                console.log('⚠️ error inserting location', err)
+                return
+            }
+
+            console.log(`✅ ${location} location added successfully`)
+        })
+        
+    })
+}
+
 
 
 const createEventsTable = async () => {
@@ -17,7 +65,7 @@ const createEventsTable = async () => {
             address VARCHAR(255) NOT NULL,
             image VARCHAR(255) NOT NULL,
             date VARCHAR(255) NOT NULL,
-            time VARCHAR(255) NOT NULL,
+            time VARCHAR(255) NOT NULL
         )
     `
 
@@ -35,17 +83,19 @@ const seedEventsTable = async () => {
     eventData.forEach((event) => {
         
         const insertQuery = {
-            text: 'INSERT INTO event (name, website, about, phone, location, address, image, date, time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)'
+            text: 'INSERT INTO events (name, website, about, phone, location, address, image, date, time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)'
         }
 
         const values = [
             event.name,
-            event.pricePoint,
-            event.audience,
+            event.website,
+            event.about,
+            event.phone,
+            event.location,
+            event.address,
             event.image,
-            event.description,
-            event.submittedBy,
-            event.submittedOn
+            event.date,
+            event.time
         ]
 
         pool.query(insertQuery, values, (err, res) => {
@@ -60,4 +110,5 @@ const seedEventsTable = async () => {
     })
 }
 
+seedLocationsTable()
 seedEventsTable()
