@@ -2,7 +2,7 @@
 
 Submitted by: **Guillermo Zendjeas**
 
-About this web app: **App description here**
+About this web app: **App showing events at different locations.**
 
 Time spent: **15** hours
 
