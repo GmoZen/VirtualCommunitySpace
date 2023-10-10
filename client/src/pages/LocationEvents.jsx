@@ -50,12 +50,14 @@ const LocationEvents = ({ city}) => {
                     events && events.length > 0 ? events.map((event, index) =>
                         
                         <Event
+                            eventData={event}
                             key={event.id}
                             id={event.id}
                             title={event.name}
                             date={event.date}
                             time={event.time}
                             image={event.image}
+                            location={event.location}
                         />
                     ) : <h2><i className="fa-regular fa-calendar-xmark fa-shake"></i> {'No events scheduled at this location yet!'}</h2>
                 }
